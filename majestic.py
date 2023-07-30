@@ -70,7 +70,7 @@ __________            .__
 /_______ \____/|___|  /___|  (____  /__|   \____/ 
         \/          \/     \/     \/       v0.1.1
 
-(Majestic AimBot Beta)''', "green"))
+(Majestic AimBot Beta)''', "deeppink3"))
 
     path_exists = os.path.exists("lib/config/config.json")
     if not path_exists or ("setup" in sys.argv):
