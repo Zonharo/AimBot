@@ -39,12 +39,12 @@ def setup():
                     number = float(input(str))
                 valid_input = True
             except ValueError:
-                print("[!] Invalid Input. Make sure to enter only the number (e.g. 1920)")
+                print("[!] Nieprawidlowe dane wejsciowe. Upewnij sie, że wprowadziles tylko liczbe (e.g. 1920)")
         return number
 
     # Dodanie wprowadzania wymiarów monitora
-    screen_width = prompt("Screen Width (e.g. 1920): ", is_integer=True)
-    screen_height = prompt("Screen Height (e.g. 1080): ", is_integer=True)
+    screen_width = prompt("Szerokosc ekranu (e.g. 1920): ", is_integer=True)
+    screen_height = prompt("Wysokosc ekranu (e.g. 1080): ", is_integer=True)
 
     # Zapisanie wymiarów monitora w słowniku
     screen_settings = {
@@ -56,7 +56,7 @@ def setup():
     with open('lib/config/config.json', 'w') as outfile:
         json.dump(screen_settings, outfile)
 
-    print("[INFO] Configuration complete")
+    print("[INFO] Konfiguracja Zakonczona")
 
 if __name__ == "__main__":
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -75,7 +75,7 @@ __________            .__
     path_exists = os.path.exists("lib/config/config.json")
     if not path_exists or ("setup" in sys.argv):
         if not path_exists:
-            print("[!] Screen width & height configuration is not set")
+            print("[!] Konfiguracja szerokosci i wysokosci ekranu nie jest ustawiona")
         setup()
     path_exists = os.path.exists("lib/data")
     if "collect_data" in sys.argv and not path_exists:

@@ -70,25 +70,25 @@ class Aimbot:
         if response.status_code == 200:
             url_file_content = response.text.strip()  # Usunięcie białych znaków
         else:
-            print(colored('\n[ERROR] WHILE VERSION CHECK | STATUS CODE: {response.status_code}', "red"))
+            print(colored('\n[ERROR] PODCZAS SPRAWDZANIA WERSJI | KOD STATUSU: {response.status_code}', "red"))
             exit(1)
 
         # Porównaj zawartość plików
         if version == url_file_content:
-            print(colored("\n[INFO] YOUR VERSION IS UP-TO-DATE", "green"))
+            print(colored("\n[INFO] TWOJA WERSJA JEST AKTUALNA", "green"))
         else:
-            print(colored("\n[WARNING] YOUR VERSION IS OUTADTED", "red"))
+            print(colored("\n[WARNING] TWOJA WERSJA JEST PRZESTARZALA", "red"))
 
         #controls the initial centered box width and height of the "Majestic" window
         self.box_constant = box_constant #controls the size of the detection box (equaling the width and height)
 
-        print("[INFO] Loading the neural network model")
+        print("[INFO] Ladowanie modelu sieci neuronowej")
         self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='lib/best.pt', force_reload = True)
         if torch.cuda.is_available():
-            print(colored("CUDA ACCELERATION [ENABLED]", "green"))
+            print(colored("AKCELERACJA CUDA [ENABLED]", "green"))
         else:
-            print(colored("[!] CUDA ACCELERATION IS UNAVAILABLE", "red"))
-            print(colored("[!] Check your PyTorch installation, else performance will be poor", "red"))
+            print(colored("[!] AKCELERACJA CUDA JEST NIEDOSTĘPNA", "red"))
+            print(colored("[!] Sprawdz instalacje PyTorch, w przeciwnym razie wydajnosc bedzie niska", "red"))
 
         self.model.conf = 0.55 # base confidence threshold (or base detection (0-1)
         self.model.iou = 0.55 # NMS IoU (0-1)
@@ -96,8 +96,7 @@ class Aimbot:
         self.mouse_delay = mouse_delay
         self.debug = debug
 
-        print("\n[INFO] PRESS 'PAGE UP' TO TOGGLE AIMBOT\n[INFO] PRESS 'INS' TO TURN ON AUTO SHOOT\n[INFO] PRESS 'END' TO QUIT")
-
+        print("\n[INFO] NACISNIJ 'PAGE UP' ABY WLACZYC AIMBOT\n[INFO] NACISNIJ 'INS' ABY WLACZYC AUTO SHOOT\n[INFO] NACISNIJ 'END' ABY ZAKONCZYC")
     def update_status_aimbot(siema):
         if not siema:
             if Aimbot.aimbot_status == colored("ENABLED", 'green'):
@@ -110,7 +109,7 @@ class Aimbot:
             else:
                 Aimbot.autoshoot_status = colored("ENABLED", 'green')
 
-        print(f"[!] AIMBOT IS [{Aimbot.aimbot_status}]  [!] AUTO SHOOT IS [{Aimbot.autoshoot_status}]", end = "\r")
+        print(f"[!] AIMBOT JEST [{Aimbot.aimbot_status}]  [!] AUTO SHOOT JEST [{Aimbot.autoshoot_status}]", end = "\r")
         sys.stdout.write("\033[K")
 
     def left_click():
@@ -141,7 +140,7 @@ class Aimbot:
         return True if Aimbot.autoshoot_status == colored("ENABLED", 'green') else False
     
     def is_targeted():
-        return True if win32api.GetKeyState(0x02) in (-127, -128) else False
+        return True if win32api.GetKeyState(0xA4) in (-127, -128) else False
 
     def is_target_locked(x, y):
         #plus/minus 5 pixel threshold
@@ -149,7 +148,7 @@ class Aimbot:
         return True if 960 - threshold <= x <= 960 + threshold and 540 - threshold <= y <= 540 + threshold else False
     
     def is_right_click_pressed():
-        return True if win32api.GetKeyState(0x02) in (-127, -128) else False
+        return True if win32api.GetKeyState(0xA4) in (-127, -128) else False
     
     def move_crosshair(self, x, y):
         dx = int(x - int(Aimbot.screen_config["screen_width"])/2)
@@ -179,7 +178,7 @@ class Aimbot:
             
 
     def start(self):
-        print("[INFO] Beginning screen capture\n")
+        print("[INFO] Początkowy zrzut ekranu\n")
         Aimbot.update_status_aimbot(siema=True)
         Aimbot.update_status_aimbot(siema=False)
         half_screen_width = ctypes.windll.user32.GetSystemMetrics(0)/2 #this should always be 960
@@ -255,8 +254,8 @@ class Aimbot:
                 break
 
     def clean_up():
-        print("\n[INFO] END WAS PRESSED. QUITTING...")
+        print("\n[INFO] END ZOSTAL NACISNIETY. ZAKONCZENIE...")
         Aimbot.screen.close()
         os._exit(0)
 
-if __name__ == "__main__": print("You are in the wrong directory and are running the wrong file; you must run majestic.py")
+if __name__ == "__main__": print("Znajdujesz sie w niewlasciwym katalogu i uruchamiasz niewlasciwy plik; musisz uruchomic majestic.py")
